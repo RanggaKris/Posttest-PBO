@@ -17,7 +17,6 @@ class SportCar {
         this.harga = harga;
     }
 
-    // Getter and setter methods
     public String getMerek() {
         return merek;
     }
