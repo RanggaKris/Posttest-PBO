@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class SportCar {
-
     private String merek;
     private String model;
     private int tahun;
@@ -18,7 +17,6 @@ class SportCar {
         this.harga = harga;
     }
 
-    // Getter and setter methods
     public String getMerek() {
         return merek;
     }
@@ -71,8 +69,93 @@ class SportCar {
     }
 }
 
-public class GNS {
+class LuxuryCar extends SportCar {
+    private boolean hasMassageSeats;
 
+    public LuxuryCar(String merek, String model, int tahun, String warna, double harga, boolean hasMassageSeats) {
+        super(merek, model, tahun, warna, harga);
+        this.hasMassageSeats = hasMassageSeats;
+    }
+
+    public boolean isHasMassageSeats() {
+        return hasMassageSeats;
+    }
+
+    public void setHasMassageSeats(boolean hasMassageSeats) {
+        this.hasMassageSeats = hasMassageSeats;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", hasMassageSeats=" + hasMassageSeats;
+    }
+
+    public void massageSeatsOn() {
+        System.out.println("Massage seats are turned on.");
+    }
+
+    public void massageSeatsOff() {
+        System.out.println("Massage seats are turned off.");
+    }
+}
+
+class EconomyCar extends SportCar {
+    private boolean isFuelEfficient;
+
+    public EconomyCar(String merek, String model, int tahun, String warna, double harga, boolean isFuelEfficient) {
+        super(merek, model, tahun, warna, harga);
+        this.isFuelEfficient = isFuelEfficient;
+    }
+
+    public boolean isFuelEfficient() {
+        return isFuelEfficient;
+    }
+
+    public void setFuelEfficient(boolean fuelEfficient) {
+        isFuelEfficient = fuelEfficient;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", isFuelEfficient=" + isFuelEfficient;
+    }
+
+    public void ecoModeOn() {
+        System.out.println("Eco mode is activated.");
+    }
+
+    public void ecoModeOff() {
+        System.out.println("Eco mode is deactivated.");
+    }
+}
+
+class ElectricCar extends SportCar {
+    private int batteryCapacity;
+
+    public ElectricCar(String merek, String model, int tahun, String warna, double harga, int batteryCapacity) {
+        super(merek, model, tahun, warna, harga);
+        this.batteryCapacity = batteryCapacity;
+    }
+
+    public int getBatteryCapacity() {
+        return batteryCapacity;
+    }
+
+    public void setBatteryCapacity(int batteryCapacity) {
+        this.batteryCapacity = batteryCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", batteryCapacity=" + batteryCapacity;
+    }
+
+    public void chargeBattery() {
+        System.out.println("Charging the battery...");
+    }
+}
+
+public class GNS {
     private static ArrayList<SportCar> mobilList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
@@ -120,6 +203,33 @@ public class GNS {
     }
 
     private static void tambahMobil() {
+        System.out.println("Pilih jenis mobil:");
+        System.out.println("1. Mobil Sport");
+        System.out.println("2. Mobil Mewah");
+        System.out.println("3. Mobil Ekonomi");
+        System.out.println("4. Mobil Listrik");
+        System.out.print("Masukkan pilihan > ");
+        int jenisMobil = Integer.parseInt(scanner.nextLine());
+
+        switch (jenisMobil) {
+            case 1:
+                tambahSportCar();
+                break;
+            case 2:
+                tambahLuxuryCar();
+                break;
+            case 3:
+                tambahEconomyCar();
+                break;
+            case 4:
+                tambahElectricCar();
+                break;
+            default:
+                System.out.println("Pilihan tidak valid!");
+        }
+    }
+
+    private static void tambahSportCar() {
         System.out.print("Masukkan merek: ");
         String merek = scanner.nextLine();
         System.out.print("Masukkan model: ");
@@ -130,15 +240,77 @@ public class GNS {
         String warna = scanner.nextLine();
         System.out.print("Masukkan harga: ");
         String hargaStr = scanner.nextLine();
-        
-        // Ini ngehapus titik dari harga kalo ada
+
         String hargaWithoutDots = hargaStr.replaceAll("\\.", "");
         double harga = Double.parseDouble(hargaWithoutDots);
-    
+
         mobilList.add(new SportCar(merek, model, tahun, warna, harga));
         System.out.println("Mobil baru telah ditambahkan!");
     }
 
+    private static void tambahLuxuryCar() {
+        System.out.print("Masukkan merek: ");
+        String merek = scanner.nextLine();
+        System.out.println        ("Masukkan model: ");
+        String model = scanner.nextLine();
+        System.out.print("Masukkan tahun: ");
+        int tahun = Integer.parseInt(scanner.nextLine());
+        System.out.print("Masukkan warna: ");
+        String warna = scanner.nextLine();
+        System.out.print("Masukkan harga: ");
+        String hargaStr = scanner.nextLine();
+        System.out.print("Apakah mobil memiliki kursi pijat? (true/false): ");
+        boolean hasMassageSeats = Boolean.parseBoolean(scanner.nextLine());
+
+        String hargaWithoutDots = hargaStr.replaceAll("\\.", "");
+        double harga = Double.parseDouble(hargaWithoutDots);
+
+        mobilList.add(new LuxuryCar(merek, model, tahun, warna, harga, hasMassageSeats));
+        System.out.println("Mobil mewah baru telah ditambahkan!");
+    }
+
+    private static void tambahEconomyCar() {
+        System.out.print("Masukkan merek: ");
+        String merek = scanner.nextLine();
+        System.out.print("Masukkan model: ");
+        String model = scanner.nextLine();
+        System.out.print("Masukkan tahun: ");
+        int tahun = Integer.parseInt(scanner.nextLine());
+        System.out.print("Masukkan warna: ");
+        String warna = scanner.nextLine();
+        System.out.print("Masukkan harga: ");
+        String hargaStr = scanner.nextLine();
+        System.out.print("Apakah mobil hemat bahan bakar? (true/false): ");
+        boolean isFuelEfficient = Boolean.parseBoolean(scanner.nextLine());
+
+        String hargaWithoutDots = hargaStr.replaceAll("\\.", "");
+        double harga = Double.parseDouble(hargaWithoutDots);
+
+        mobilList.add(new EconomyCar(merek, model, tahun, warna, harga, isFuelEfficient));
+        System.out.println("Mobil ekonomi baru telah ditambahkan!");
+    }
+
+    private static void tambahElectricCar() {
+        System.out.print("Masukkan merek: ");
+        String merek = scanner.nextLine();
+        System.out.print("Masukkan model: ");
+        String model = scanner.nextLine();
+        System.out.print("Masukkan tahun: ");
+        int tahun = Integer.parseInt(scanner.nextLine());
+        System.out.print("Masukkan warna: ");
+        String warna = scanner.nextLine();
+        System.out.print("Masukkan harga: ");
+        String hargaStr = scanner.nextLine();
+        System.out.print("Masukkan kapasitas baterai: ");
+        int batteryCapacity = Integer.parseInt(scanner.nextLine());
+
+        String hargaWithoutDots = hargaStr.replaceAll("\\.", "");
+        double harga = Double.parseDouble(hargaWithoutDots);
+
+        mobilList.add(new ElectricCar(merek, model, tahun, warna, harga, batteryCapacity));
+        System.out.println("Mobil listrik baru telah ditambahkan!");
+    }
+    
     private static void lihatDaftarMobil() {
         if (mobilList.isEmpty()) {
             System.out.println("Daftar mobil masih kosong!");
@@ -202,3 +374,4 @@ public class GNS {
         System.out.println("Mobil telah dihapus!");
     }
 }
+
